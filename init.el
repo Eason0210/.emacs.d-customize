@@ -181,7 +181,7 @@
 ;;c/c++ setting
 (require 'init-ctags)
 (require 'init-gtags)
-(require 'init-clang)
+(require 'init-company-mode)
 (require 'init-cc-mode)
 
 
