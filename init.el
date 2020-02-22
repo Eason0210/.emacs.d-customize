@@ -110,7 +110,7 @@
 (require 'init-yaml)
 (require 'init-docker)
 (require 'init-terraform)
-(require 'init-nix)
+;;(require 'init-nix)
 (maybe-require-package 'nginx-mode)
 
 (require 'init-paredit)
@@ -179,10 +179,10 @@
 (require 'init-evil)
 
 ;;c/c++ setting
-(require 'init-ctags)
-(require 'init-gtags)
-(require 'init-company-mode)
-(require 'init-cc-mode)
+;; (require 'init-ctags)
+;; (require 'init-gtags)
+;; (require 'init-company-mode)
+;; (require 'init-cc-mode)
 
 
 (require 'init-local)

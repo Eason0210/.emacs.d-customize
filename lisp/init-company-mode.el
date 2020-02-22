@@ -63,4 +63,4 @@
 
 
 (provide 'init-company-mode)
-;;; init-clang.el ends here
+;;; init-company-mode.el ends here

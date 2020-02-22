@@ -74,6 +74,33 @@
   (setq c-electric-pound-behavior (quote (alignleft))))
 
 ;; donot use c-mode-common-hook or cc-mode-hook because many major-modes use this hook
+(defun is-buffer-file-temp ()
+  "If (buffer-file-name) is nil or a temp file or HTML file converted from org file."
+  (interactive)
+  (let* ((f (buffer-file-name)) (rlt t))
+    (cond
+     ((not load-user-customized-major-mode-hook)
+      (setq rlt t))
+     ((not f)
+      ;; file does not exist at all
+      ;; org-babel edit inline code block need calling hook
+      (setq rlt nil))
+     ((string= f cached-normal-file-full-path)
+      (setq rlt nil))
+     ((string-match (concat "^" temporary-file-directory) f)
+      ;; file is create from temp directory
+      (setq rlt t))
+     ((and (string-match "\.html$" f)
+           (file-exists-p (replace-regexp-in-string "\.html$" ".org" f)))
+      ;; file is a html file exported from org-mode
+      (setq rlt t))
+     (force-buffer-file-temp-p
+      (setq rlt t))
+     (t
+      (setq cached-normal-file-full-path f)
+      (setq rlt nil)))
+    rlt))
+
 (defun c-mode-common-hook-setup ()
   (unless (is-buffer-file-temp)
     (my-common-cc-mode-setup)
@@ -84,10 +111,8 @@
     (when (and (executable-find "global")
                ;; `man global' to figure out why
                (not (string-match-p "GTAGS not found"
-                                    (shell-command-to-string "global -p"))))
-      ;; emacs 24.4+ will set up eldoc automatically.
-      ;; so below code is NOT needed.
-      (eldoc-mode 1))))
+                                    (shell-command-to-string "global -p")))))))
+
 (add-hook 'c-mode-common-hook 'c-mode-common-hook-setup)
 
 (provide 'init-cc-mode)
