@@ -175,7 +175,18 @@
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
 ;;----------------------------------------------------------------------------
-(require 'init-local nil t)
+
+(require 'init-evil)
+
+;;c/c++ setting
+(require 'init-ctags)
+(require 'init-gtags)
+(require 'init-clang)
+(require 'init-cc-mode)
+
+
+(require 'init-local)
+
 
 
 
